@@ -18,6 +18,12 @@ jobs:
       - name: Install dependencies
         run: dotnet restore --runtime win
 
+      - name: Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Add dotnet tools to PATH
+        run: echo "$Env:USERPROFILE\.dotnet\tools" >> $Env:GITHUB_PATH
+
       - name: Build Solution
         run: |
           msbuild AppSec.sln /p:Configuration=Release /p:RuntimeIdentifiers=win
