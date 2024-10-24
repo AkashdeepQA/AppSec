@@ -29,7 +29,7 @@ jobs:
           msbuild AppSec.sln /p:Configuration=Release /p:RuntimeIdentifiers=win
 
       - name: Run SonarCloud Analysis - Begin
-        run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.organization="akashdeepqa"
 
       - name: Run Tests
         run: msbuild YourSolution.sln /t:Test /p:Configuration=Release
