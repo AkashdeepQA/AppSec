@@ -22,14 +22,11 @@ jobs:
         run: |
           msbuild AppSec.sln /p:Configuration=Release /p:RuntimeIdentifiers=win
 
-      - name: Run SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectKey: 'AkashdeepQA_AppSec'
-          organization: 'akashdeepqa'
-          token: ${{ secrets.SONAR_TOKEN }}
+      - name: Run SonarCloud Analysis - Begin
+        run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
-      - name: End Analysis
-        run: dotnet-sonarscanner end
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run Tests
+        run: msbuild YourSolution.sln /t:Test /p:Configuration=Release
+
+      - name: Run SonarCloud Analysis - End
+        run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
