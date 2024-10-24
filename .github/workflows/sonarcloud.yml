@@ -24,12 +24,12 @@ jobs:
       - name: Add dotnet tools to PATH
         run: echo "$Env:USERPROFILE\.dotnet\tools" >> $Env:GITHUB_PATH
 
+      - name: Run SonarCloud Analysis - Begin
+        run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /o:"akashdeepqa"
+
       - name: Build Solution
         run: |
           msbuild AppSec.sln /p:Configuration=Release /p:RuntimeIdentifiers=win
-
-      - name: Run SonarCloud Analysis - Begin
-        run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /o:"akashdeepqa"
 
       - name: Run SonarCloud Analysis - End
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
