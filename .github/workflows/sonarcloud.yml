@@ -12,16 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '4.7.2'  # Adjust as per your project
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
       - name: Install dependencies
         run: dotnet restore
 
-      - name: Build
-        run: dotnet build --no-restore
+      - name: Build Solution
+        run: |
+          msbuild AppSec.sln /p:Configuration=Release
 
       - name: Run SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
