@@ -25,8 +25,8 @@ jobs:
       - name: Run SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          projectKey: 'your-project-key'
-          organization: 'your-organization'
+          projectKey: 'AkashdeepQA_AppSec'
+          organization: 'akashdeepqa'
           token: ${{ secrets.SONAR_TOKEN }}
 
       - name: End Analysis
