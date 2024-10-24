@@ -1,0 +1,36 @@
+name: SonarCloud
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.x.x'  # Adjust as per your project
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Run SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          projectKey: 'your-project-key'
+          organization: 'your-organization'
+          token: ${{ secrets.SONAR_TOKEN }}
+
+      - name: End Analysis
+        run: dotnet-sonarscanner end
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
