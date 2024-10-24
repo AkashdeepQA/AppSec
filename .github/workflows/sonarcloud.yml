@@ -16,20 +16,20 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore --runtime win
+
+      - name: Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Add dotnet tools to PATH
+        run: echo "$Env:USERPROFILE\.dotnet\tools" >> $Env:GITHUB_PATH
+
+      - name: Run SonarCloud Analysis - Begin
+        run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /o:"akashdeepqa"
 
       - name: Build Solution
         run: |
-          msbuild AppSec.sln /p:Configuration=Release
+          msbuild AppSec.sln /p:Configuration=Release /p:RuntimeIdentifiers=win
 
-      - name: Run SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectKey: 'your-project-key'
-          organization: 'your-organization'
-          token: ${{ secrets.SONAR_TOKEN }}
-
-      - name: End Analysis
-        run: dotnet-sonarscanner end
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run SonarCloud Analysis - End
+        run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
