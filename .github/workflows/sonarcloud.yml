@@ -32,7 +32,7 @@ jobs:
         run: dotnet sonarscanner begin /k:"AkashdeepQA_AppSec" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /o:"akashdeepqa"
 
       - name: Run Tests
-        run: msbuild YourSolution.sln /t:Test /p:Configuration=Release
+        run: msbuild AppSec.sln /t:Test /p:Configuration=Release
 
       - name: Run SonarCloud Analysis - End
         run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
