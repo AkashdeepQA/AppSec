@@ -16,11 +16,11 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore --runtime win
 
       - name: Build Solution
         run: |
-          msbuild AppSec.sln /p:Configuration=Release
+          msbuild AppSec.sln /p:Configuration=Release /p:RuntimeIdentifiers=win
 
       - name: Run SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
