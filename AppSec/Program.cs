@@ -151,32 +151,37 @@ namespace AppSec
 
             // Issue: Unused variable (code smell)
             int unusedVariable = 10;
-            
+
             #endregion
 
             #region Secret Scanning Issues
 
-            // Example 1: Hardcoded API Key (AWS Access Key Format)
-            string awsAccessKey = "AKIAIOSFODNN7EXAMPLE"; // Mock AWS Access Key
-            string awsSecretKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"; // Mock AWS Secret Key
+            // Example 1: Mock AWS Credentials
+            string awsAccessKey = "AKIAEXAMPLEACCESSKEY1234"; // AWS Access Key pattern
+            string awsSecretKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"; // AWS Secret Key pattern
 
-            // Example 2: Hardcoded Password
-            string dbPassword = "P@ssw0rd123"; // Mock password for testing
+            // Example 2: Mock GitHub Token
+            string githubToken = "ghp_abcdEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // GitHub token pattern
 
-            // Example 3: Mock GitHub Personal Access Token
-            string githubToken = "ghp_1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123"; // Mock GitHub Token
+            // Example 3: Mock Slack Webhook URL
+            string slackWebhook = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"; // Slack webhook pattern
 
-            // Example 4: Fake Credit Card Number
-            string creditCardNumber = "4111111111111111"; // Mock Visa test card number
+            // Example 4: Fake Azure Storage Key
+            string azureStorageKey = "sv=2019-12-12&ss=b&srt=o&sp=rw&se=2024-01-01T00:00:00Z&st=2023-01-01T00:00:00Z&spr=https&sig=FAKEAZURESTORAGEKEY123456789"; // Azure key format
 
-            // Example 5: Simulated Secret Key in Environment Variable
-            Environment.SetEnvironmentVariable("MY_SECRET", "SuperSecretValue123!");
+            // Example 5: Hardcoded Private Key
+            string privateKey = @"
+            -----BEGIN PRIVATE KEY-----
+            MIIBVwIBADANBgkqhkiG9w0BAQEFAASCATwwggEoAgEAAkEAvBLA7I2aU5jFgZ3k
+            YmGZp8l9Yzy/dxgMSd3GQp2dH2dMSn7z0fGsEXAMPLEoBQ==
+            -----END PRIVATE KEY-----
+            ";
 
-            // Print for demonstration
-            Console.WriteLine("Secrets have been initialized. WARNING: Do not use real secrets in code!");
-                
+            // Print a message for demonstration purposes
+            Console.WriteLine("Potential secrets have been initialized for testing purposes!");
+
             #endregion
-                
+
             Console.ReadLine();
             //Test2
         }
