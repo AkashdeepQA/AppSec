@@ -175,6 +175,29 @@ namespace AppSec
             Console.WriteLine("Secrets have been initialized. WARNING: Do not use real secrets in code!");
             #endregion
 
+            #region Secret Scanning Issues
+
+            // Example 1: Hardcoded API Key (AWS Access Key Format)
+            string awsAccessKey = "AKIAIOSFODNN7EXAMPLE"; // Mock AWS Access Key
+            string awsSecretKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"; // Mock AWS Secret Key
+
+            // Example 2: Hardcoded Password
+            string dbPassword = "P@ssw0rd123"; // Mock password for testing
+
+            // Example 3: Mock GitHub Personal Access Token
+            string githubToken = "ghp_1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123"; // Mock GitHub Token
+
+            // Example 4: Fake Credit Card Number
+            string creditCardNumber = "4111111111111111"; // Mock Visa test card number
+
+            // Example 5: Simulated Secret Key in Environment Variable
+            Environment.SetEnvironmentVariable("MY_SECRET", "SuperSecretValue123!");
+
+            // Print for demonstration
+            Console.WriteLine("Secrets have been initialized. WARNING: Do not use real secrets in code!");
+                
+            #endregion
+                
             Console.ReadLine();
             //Test2
         }
