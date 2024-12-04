@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Security.Cryptography;
 using System.IO;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace AppSec
 {
@@ -15,7 +16,7 @@ namespace AppSec
         static void Main(string[] args)
         {
             #region Encoding
-
+            /*
             string data = "Hello, World!";
             Console.WriteLine("Original Data: " + data);
 
@@ -32,11 +33,11 @@ namespace AppSec
             // Convert bytes back to string
             string decodedData = Encoding.UTF8.GetString(base64DecodedBytes);
             Console.WriteLine($"Decoded Data: {decodedData}");
-
+            */
             #endregion
 
             #region Serialization
-
+            /*
             Person person = new Person { Name = "John", Age = 30 };
 
             // Serialize object to JSON
@@ -46,11 +47,11 @@ namespace AppSec
             // Deserialize JSON back to object
             Person deserializedPerson = JsonSerializer.Deserialize<Person>(json);
             Console.WriteLine($"Deserialized Object: {deserializedPerson.Name}, {deserializedPerson.Age}");
-
+            */
             #endregion
 
             #region Encryption
-
+            
             string dataToEncrypt = "Sensitive data to encrypt";
             Console.WriteLine("Original Data: " + dataToEncrypt);
 
@@ -73,23 +74,39 @@ namespace AppSec
             #endregion
 
             #region Hashing & Salting
-
-            string password = "mysecretpassword";
-            Console.WriteLine($"Original password: {password}");
+            /*
+            string password_user1 = "mysecretpassword";
+            Console.WriteLine($"Original password: {password_user1}");
 
             // Hashing without salting
-            string hashedPasswordWithoutSalt = HashPassword(password);
+            string hashedPasswordWithoutSalt = HashPassword(password_user1);
             Console.WriteLine("Hashed password without salt: " + hashedPasswordWithoutSalt);
 
             // Hashing with salting
             string salt = GenerateSalt();
-            string hashedPasswordWithSalt = HashPassword(password, salt);
+            string hashedPasswordWithSalt = HashPassword(password_user1, salt);
             Console.WriteLine("Hashed password with salt: " + hashedPasswordWithSalt);
 
+            string password_user2 = "mysecretpassword";
+            Console.WriteLine($"\n\nOriginal password: {password_user2}");
+
+            // Hashing without salting - Comparision
+            string hashedPasswordWithoutSalt1 = HashPassword(password_user2);
+            Console.WriteLine("Hash#1 - Hashed password without salt: " + hashedPasswordWithoutSalt);
+            Console.WriteLine("Hash#2 - Hashed password without salt: " + hashedPasswordWithoutSalt1);
+            Console.WriteLine($"Is the Hashed string same for same values: {hashedPasswordWithoutSalt.Equals(hashedPasswordWithoutSalt1)}");
+            Console.WriteLine();
+            // Hashing with salting
+            string salt1 = GenerateSalt();
+            string hashedPasswordWithSalt1 = HashPassword(password_user2, salt);
+            Console.WriteLine("Hash#1 - Hashed password with salt: " + hashedPasswordWithSalt);
+            Console.WriteLine("Hash#2 - Hashed password with salt: " + hashedPasswordWithSalt1);
+            Console.WriteLine($"Is the Hashed string with salt same for same values: {hashedPasswordWithSalt.Equals(hashedPasswordWithSalt1)}");
+            */
             #endregion
 
-            #region SonanrCloud errors
-
+            #region SonarCloud errors
+            
             // Issue: Hardcoded password (security vulnerability)
             string password2 = "P@ssw0rd";
 
@@ -105,7 +122,7 @@ namespace AppSec
 
             // Issue: Use of insecure hash function (MD5 is insecure)
             System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password2);
             byte[] hash = md5.ComputeHash(inputBytes);
 
             // Issue: Empty catch block (bad practice)
@@ -134,7 +151,28 @@ namespace AppSec
 
             // Issue: Unused variable (code smell)
             int unusedVariable = 10;
+            
+            #endregion
 
+            #region Github Secret Scanning
+            // Example 1: Hardcoded API Key (AWS Access Key Format)
+            string awsAccessKey = "AKIAIOSFODNN7EXAMPLE"; // Mock AWS Access Key
+            string awsSecretKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"; // Mock AWS Secret Key
+
+            // Example 2: Hardcoded Password
+            string dbPassword = "P@ssw0rd123"; // Mock password for testing
+
+            // Example 3: Mock GitHub Personal Access Token
+            string githubToken = "ghp_1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ123"; // Mock GitHub Token
+
+            // Example 4: Fake Credit Card Number
+            string creditCardNumber = "4111111111111111"; // Mock Visa test card number
+
+            // Example 5: Simulated Secret Key in Environment Variable
+            Environment.SetEnvironmentVariable("MY_SECRET", "SuperSecretValue123!");
+
+            // Print for demonstration
+            Console.WriteLine("Secrets have been initialized. WARNING: Do not use real secrets in code!");
             #endregion
 
             Console.ReadLine();
