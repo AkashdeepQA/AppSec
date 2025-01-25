@@ -15,6 +15,7 @@ namespace AppSec
     {
         static void Main(string[] args)
         {
+            //Adding a new comment
             #region Encoding
             /*
             string data = "Hello, World!";
